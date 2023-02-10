@@ -2,6 +2,7 @@ import { Client, IntentsBitField} from 'discord.js';
 import * as path from 'path';
 import * as fs from 'fs';
 import { Sequelize } from 'sequelize';
+import { message_create_listener } from './Events/message_create';
 
 require('dotenv').config({
     path: path.join(__dirname, ".env")
@@ -10,7 +11,7 @@ require('dotenv').config({
 
 export const sequelize = new Sequelize({
     dialect: 'sqlite',
-    storage: 'example.db',
+    storage: 'stats.db',
     logging: false
 })
 
@@ -38,11 +39,19 @@ const client = new Client({
 
 
 client.once('ready', (client) => {
+    message_create_listener(client, sequelize);
     console.log("ready");
 })
 
 
 
+/*
+commands:
+    - !stats @user <days> 
+    - !stats role <days>
+ * 
+ * 
+ */
 
 
 
