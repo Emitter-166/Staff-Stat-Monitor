@@ -9,9 +9,9 @@ require('dotenv').config({
 })
 
 
-export const sequelize = new Sequelize({
-    dialect: 'sqlite',
-    storage: 'stats.db',
+export const sequelize = new Sequelize("staff_stats", "root", process.env._DB_PASS, {
+    host: 'localhost',
+    dialect: 'mysql',
     logging: false
 })
 
